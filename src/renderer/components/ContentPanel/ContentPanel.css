@@ -1,0 +1,39 @@
+.content-panel {
+  flex: 1;
+  height: 100%;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  overflow: auto;
+  padding: 20px;
+}
+
+/* Placeholder styles - these would be more detailed in real components */
+.notes-placeholder,
+.chat-placeholder,
+.search-placeholder,
+.settings-placeholder {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: #888;
+  background-color: #252526;
+  border-radius: 5px;
+}
+
+/* For dark mode integration later */
+@media (prefers-color-scheme: light) {
+  .content-panel {
+    background-color: #ffffff;
+    color: #333;
+  }
+
+  .notes-placeholder,
+  .chat-placeholder,
+  .search-placeholder,
+  .settings-placeholder {
+    background-color: #f5f5f5;
+    color: #555;
+  }
+} 

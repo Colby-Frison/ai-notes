@@ -2,23 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Electron Boilerplate</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self' http://localhost:5173">
+    <title>AI Notes</title>
   </head>
   <body>
-    <div id="app" class="container" style="display: none;">
-      <h1 id="greet"></h1>
-      <p>
-        Welcome to
-        <a href="https://www.electronjs.org/" class="electron-website-link">
-          Electron
-        </a>
-        app running on this <strong id="os"></strong> machine.
-      </p>
-      <p>App author: <strong id="author"></strong></p>
-      <p>Environment: <strong id="env"></strong></p>
-      <p>Electron version: <strong id="electron-version"></strong></p>
-    </div>
-
+    <div id="root"></div>
+    <!-- In development, this redirects to Vite dev server -->
+    <!-- In production, this loads the built React app -->
     <script src="app.js"></script>
   </body>
 </html>

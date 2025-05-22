@@ -1,54 +1,46 @@
 {
-  "name": "electron-boilerplate",
-  "productName": "Electron Boilerplate",
-  "description": "Starter for your Electron application",
+  "name": "ai-notes",
+  "productName": "ai-notes",
+  "description": "notes app with ai",
   "version": "0.0.0",
   "private": true,
-  "author": "Mr. Gumby <mr.gumby@example.com>",
-  "copyright": "© 2017, Gumby inc.",
+  "author": "Colby Frison <colbyfrison100@gmail.com>",
+  "copyright": "© 2025, Colby Frison",
   "homepage": "http://example.com",
-  "main": "app/main.js",
+  "main": "src/electron/main.js",
   "build": {
-    "appId": "com.example.electron-boilerplate",
+    "appId": "com.example.ai-notes",
     "files": [
-      "app/**/*",
+      "src/electron/**/*",
+      "app/dist/**/*",
       "node_modules/**/*",
       "package.json"
     ],
     "directories": {
-      "buildResources": "resources"
+      "buildResources": "resources",
+      "output": "dist"
     },
     "publish": null
   },
   "scripts": {
-    "postinstall": "electron-builder install-app-deps",
-    "preunit": "webpack --config=build/webpack.unit.config.js --env=test",
-    "unit": "electron-mocha temp/specs.js --renderer --color --require source-map-support/register",
-    "pree2e": "webpack --config=build/webpack.app.config.js --env=test && webpack --config=build/webpack.e2e.config.js --env=test",
-    "e2e": "mocha temp/e2e.js --require source-map-support/register",
-    "test": "npm run unit && npm run e2e",
-    "start": "node build/start.js",
-    "release": "npm test && webpack --config=build/webpack.app.config.js --env=production && electron-builder"
+    "start": "npx electron .",
+    "dev": "npx vite serve src/renderer --port 5173 --strictPort",
+    "dev:all": "node dev.js",
+    "build": "vite build src/renderer",
+    "package": "npm run build && electron-builder build --publish never"
   },
   "dependencies": {
-    "fs-jetpack": "^4.1.0"
+    "electron-squirrel-startup": "^1.0.1",
+    "fs-jetpack": "^4.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "babel-loader": "^8.2.2",
-    "chai": "^4.1.0",
-    "css-loader": "^5.2.0",
+    "@vitejs/plugin-react": "^4.4.1",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
     "electron": "^13.0.1",
     "electron-builder": "^22.5.1",
-    "electron-mocha": "^10.0.0",
-    "mocha": "^8.3.2",
-    "source-map-support": "^0.5.6",
-    "spectron": "^15.0.0",
-    "style-loader": "^2.0.0",
-    "webpack": "^5.30.0",
-    "webpack-cli": "^4.6.0",
-    "webpack-merge": "^5.7.3",
-    "webpack-node-externals": "^3.0.0"
+    "vite": "^6.3.5"
   }
 }

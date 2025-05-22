@@ -59,16 +59,20 @@ app.on("ready", () => {
     }
   });
 
-  mainWindow.loadURL(
-    url.format({
-      pathname: path.join(__dirname, "app.html"),
-      protocol: "file:",
-      slashes: true
-    })
-  );
-
+  // Directly load the React app
   if (env.name === "development") {
+    // Load from Vite dev server in development
+    mainWindow.loadURL("http://localhost:5173");
     mainWindow.openDevTools();
+  } else {
+    // Load built React app in production
+    mainWindow.loadURL(
+      url.format({
+        pathname: path.join(__dirname, "../app/dist/index.html"),
+        protocol: "file:",
+        slashes: true
+      })
+    );
   }
 });
 

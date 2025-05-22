@@ -1,40 +1,12 @@
-import "./stylesheets/main.css";
+// This file is responsible for redirecting to our React app
 
-// Everything below is just a demo. You can delete all of it.
+// Detect the environment
+const isDev = process.env.NODE_ENV === 'development';
 
-import { ipcRenderer } from "electron";
-import jetpack from "fs-jetpack";
-import { greet } from "./hello_world/hello_world";
-import env from "env";
-
-document.querySelector("#app").style.display = "block";
-document.querySelector("#greet").innerHTML = greet();
-document.querySelector("#env").innerHTML = env.name;
-document.querySelector("#electron-version").innerHTML =
-  process.versions.electron;
-
-const osMap = {
-  win32: "Windows",
-  darwin: "macOS",
-  linux: "Linux"
-};
-document.querySelector("#os").innerHTML = osMap[process.platform];
-
-// We can communicate with main process through messages.
-ipcRenderer.on("app-path", (event, appDirPath) => {
-  // Holy crap! This is browser window with HTML and stuff, but I can read
-  // files from disk like it's node.js! Welcome to Electron world :)
-  const appDir = jetpack.cwd(appDirPath);
-  const manifest = appDir.read("package.json", "json");
-  document.querySelector("#author").innerHTML = manifest.author;
-});
-ipcRenderer.send("need-app-path");
-
-document.querySelector(".electron-website-link").addEventListener(
-  "click",
-  event => {
-    ipcRenderer.send("open-external-link", event.target.href);
-    event.preventDefault();
-  },
-  false
-);
+// In development, redirect to the Vite dev server
+// In production, redirect to the built React app in app/dist
+if (isDev) {
+  window.location.href = 'http://localhost:5173';
+} else {
+  window.location.href = './dist/index.html';
+}
