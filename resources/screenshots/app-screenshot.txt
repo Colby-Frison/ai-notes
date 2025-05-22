@@ -1,0 +1,5 @@
+This is a placeholder for the AI Notes application screenshot.
+
+When you take a screenshot of your running application, save it as app-screenshot.png in this directory to replace this placeholder file.
+
+The screenshot should show the main interface of the application with the sidebar and content panel visible. 

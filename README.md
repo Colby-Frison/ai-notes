@@ -1,94 +1,88 @@
-# electron-boilerplate
+# AI Notes
 
-**This repository is no longer in active maintenance.**
+A modern AI-powered note-taking application built with Electron and React. Create, organize, and enhance your notes with AI assistance.
 
----
+![AI Notes Screenshot](resources/screenshots/app-screenshot.png)
 
-Minimalistic, very easy to understand boilerplate for [Electron runtime](https://www.electronjs.org/). Tested on Windows, macOS and Linux.  
+## Features
 
-This project contains only bare minimum of tooling and dependencies to provide you with simple to understand and extensible base (but still, this is fully functional Electron environment). The boilerplate doesn't impose on you any frontend technologies, so feel free to pick your favourite.
+- **Modern UI**: Clean, VSCode/Obsidian-inspired interface
+- **Note Management**: Create, edit, and organize your notes
+- **AI Assistant**: Intelligent chat assistant to help with your notes
+- **Cross-Platform**: Works on Windows, macOS, and Linux
 
-# Quick start
+## Getting Started
 
-Make sure you have [Node.js](https://nodejs.org) installed, then type...
-```
-git clone https://github.com/szwacz/electron-boilerplate.git
-cd electron-boilerplate
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v14 or later)
+- npm (comes with Node.js)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/ai-notes.git
+cd ai-notes
+
+# Install dependencies
 npm install
-npm start
 ```
-...and you have a running desktop application on your screen.
 
-# Structure of the project
+### Development
 
-The application consists of two main folders...
+The application uses a dual-process architecture with Electron and React:
 
-`src` - files within this folder get transpiled or compiled (because Electron can't use them directly).
+```bash
+# Start the Vite development server (Terminal 1)
+npm run dev
 
-`app` - contains all static assets which don't need any pre-processing and can be used directly.
-
-The build process compiles the content of the `src` folder and puts it into the `app` folder, so after the build has finished, your `app` folder contains the full, runnable application. Treat `src` and `app` folders like two halves of one bigger thing.
-
-The drawback of this design is that `app` folder contains some files which should be git-ignored and some which shouldn't (see `.gitignore` file). But this two-folders split makes development builds much faster.
-
-# Development
-
-## Starting the app
-
-```
+# Start Electron (Terminal 2)
 npm start
 ```
 
-## The build pipeline
+### Building for Production
 
-Build process uses [Webpack](https://webpack.js.org/). The entry-points are `src/main.js` and `src/app.js`. Webpack will follow all `import` statements starting from those files and compile code of the whole dependency tree into one `.js` file for each entry point.
-
-[Babel](http://babeljs.io/) is also utilised, but mainly for its great error messages. Electron under the hood runs latest Chromium, hence most of the new JavaScript features are already natively supported.
-
-## Environments
-
-Environmental variables are done in a bit different way (not via `process.env`). Env files are plain JSONs in `config` directory, and build process dynamically links one of them as an `env` module. You can import it wherever in code you need access to the environment.
-```js
-import env from "env";
-console.log(env.name);
+```bash
+# Build the React app and package Electron
+npm run package
 ```
 
-## Adding npm modules to your app
-
-Remember to respect the split between `dependencies` and `devDependencies` in `package.json` file. Your distributable app will contain only modules listed in `dependencies` after running the release script.
-
-*Side note:* If the module you want to use in your app is a native one (not pure JavaScript but compiled binary) you should first  run `npm install name_of_npm_module` and then `npm run postinstall` to rebuild the module for Electron. You need to do this once after you're first time installing the module. Later on, the postinstall script will fire automatically with every `npm install`.
-
-# Testing
-
-Run all tests:
-```
-npm test
-```
-
-## Unit
+## Project Structure
 
 ```
-npm run unit
+AI Notes/
+├── app/               # Electron output directory
+│   └── dist/          # Built React app (production)
+├── src/               # Source code
+│   ├── electron/      # Electron main process
+│   │   ├── main.js    # Main entry point
+│   │   └── preload.js # Preload script for security
+│   └── renderer/      # React application (renderer process)
+│       ├── components/# React components
+│       │   ├── Layout/     # Layout components
+│       │   ├── Sidebar/    # Sidebar navigation
+│       │   ├── Notes/      # Notes interface
+│       │   ├── Chat/       # AI chat interface
+│       │   └── ContentPanel/ # Main content area
+│       ├── App.jsx    # Main React component
+│       └── main.jsx   # React entry point
+├── microservices/     # Backend services (optional)
+│   ├── notes-api/     # Notes storage and retrieval
+│   └── ai-service/    # AI processing services
+└── package.json       # Project dependencies and scripts
 ```
-Using [electron-mocha](https://github.com/jprichardson/electron-mocha) test runner with the [Chai](http://chaijs.com/api/assert/) assertion library. You can put your spec files wherever you want within the `src` directory, just name them with the `.spec.js` extension.
 
-## End to end
+## Documentation
 
-```
-npm run e2e
-```
-Using [Mocha](https://mochajs.org/) and [Spectron](http://electron.atom.io/spectron/). This task will run all files in `e2e` directory with `.e2e.js` extension.
+For more detailed information about the application architecture, component structure, and development workflow, see the [Technical Documentation](DOCUMENTATION.md).
 
-# Making a release
+## License
 
-To package your app into an installer use command:
-```
-npm run release
-```
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Once the packaging process finished, the `dist` directory will contain your distributable file.
+## Acknowledgments
 
-[Electron-builder](https://github.com/electron-userland/electron-builder) is handling the packaging process. Follow docs over there to customise your build.
-
-You can package your app cross-platform from a single operating system, [electron-builder kind of supports this](https://www.electron.build/multi-platform-build), but there are limitations and asterisks. That's why this boilerplate doesn't do that by default.
+- [Electron](https://www.electronjs.org/) - Desktop application framework
+- [React](https://reactjs.org/) - UI library
+- [Vite](https://vitejs.dev/) - Frontend build tool
